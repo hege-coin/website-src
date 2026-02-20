@@ -1,8 +1,9 @@
 .venv
-build-git-dev/**
-build-git-prod/**
-build-output/**
+build-git-dev
+build-git-prod
+build-output
 public/**
 resources/_gen
 hugo
 .hugo_build.lock
+.DS_Store
