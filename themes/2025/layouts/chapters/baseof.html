@@ -79,6 +79,7 @@
     </nav>
     {{ end }}
   </main>
+  {{ if site.Params.enable_cookies }}
   <dialog id="cookie-consent-dialog" class="cookie-consent-dialog">
     <div class="w box">
       <h2>
@@ -100,6 +101,7 @@
       </form>
     </div>
   </dialog>
+  {{ end }}
   <template id="geoblock-msg-template">
     <div class="heavy plain box">
       <h1>
