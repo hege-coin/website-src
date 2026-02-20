@@ -10,23 +10,33 @@ Git repo: [website-prod].
 
 ## Dependencies
 
-Building and publishing the site requires:
+Developing the site requires:
 
 - Git, any recent version should do.
 - Hugo >= 0.151, extended version ([gohugo.io](https://gohugo.io/)).
-- Tidy >= 5.8.0 ([html-tidy.org](https://www.html-tidy.org/)).
 
-Publishing requires write access to the [website-prod] repository.
+Additionally, building a release and publishing it requires:
+
+- Tidy >= 5.8.0 ([html-tidy.org](https://www.html-tidy.org/)).
+- Write access to the [website-prod] repository.
+
+## Developing locally
+
+To develop the site locally, use `hugo` to run a local server:
+
+```sh
+hugo server
+```
 
 ## Building and publishing
 
-This is how to build and publish the site:
+To build and publish the site, use this script:
 
 ```sh
 ./build-prod-and-deploy.sh
 ```
 
-Or if you want to deploy manually:
+Or if you want to first build and then deploy manually:
 
 ```sh
 ./build-prod.sh
@@ -42,13 +52,13 @@ processing to tidy up the HTML, and copy in a few other files from
 `output-base/`.
 
 The content of `output-build/` is version controlled in a separate Git repo,
-stored in `build-git-prod/`. This repo is then used to host the site on Cloudflare
-Pages. See [website-prod].
+stored in `build-git-prod/`. This repo is what is used to host the site on
+Cloudflare Pages. See [website-prod].
 
 ## Development version
 
 The development version works exactly the same as the production version, only
-that it deploys the website to [website-dev] instead of [website-prod].
+that it deploys to [website-dev] instead of [website-prod].
 
 Use `build-dev-and-deploy.sh` to build and deploy it. This requires write access
 to the [website-dev] repo.
