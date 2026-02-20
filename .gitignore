@@ -1,0 +1,7 @@
+.venv
+build-git-dev/**
+build-git-prod/**
+build-output/**
+public/**
+resources/_gen
+hugo
