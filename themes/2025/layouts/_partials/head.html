@@ -56,7 +56,12 @@
 <meta name="description" content="{{ $descr }}">
 {{ end }}
 <meta property="og:type" content="website">
-{{ with partial "res.html" "img/opengraph.jpg" }}
+
+{{ $og := resources.Get "img/opengraph.jpg" }}
+{{ with .Resources.Get "opengraph.jpg" }}
+{{ $og = . }}
+{{ end }}
+{{ with partial "r.html" $og }}
 <meta property="og:image" content="{{ .Permalink }}">
 {{ end }}
 
