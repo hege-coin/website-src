@@ -5,3 +5,4 @@ build-output/**
 public/**
 resources/_gen
 hugo
+.hugo_build.lock
