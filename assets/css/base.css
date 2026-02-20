@@ -1,0 +1,941 @@
+/* https: //www.joshwcomeau.com/css/custom-css-reset/ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+    text-wrap: pretty;
+}
+
+iframe {
+    border: none;
+}
+
+/* Colors */
+
+html {
+    --black: #242424;
+    --white: #f2f2f2;
+    --white2: #efefef;
+    --red: #ff5d00;
+    --green: #60b157;
+    --blue: #0668c9;
+    --yellow: #fdc238;
+    /* This darker green works as background for white text */
+    /* https://dequeuniversity.com/rules/axe/4.11/color-contrast */
+    --dark-green: #42823B;
+}
+
+/* General */
+
+body {
+    background-color: var(--yellow);
+    background-repeat: no-repeat;
+    background-position: top 100px center;
+    font-family: PM;
+    font-size: 14px;
+}
+
+@media screen and (width >=500px) {
+    body {
+        background-image: url('{{ with partial "r.html" (resources.Get "img/dots-bg.avif")  }}{{ .RelPermalink }}{{ end }}');
+    }
+}
+
+/* Layout */
+
+body {
+    min-height: 100dvh;
+}
+
+header {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/*
+Header
+*/
+
+header ul {
+    list-style: none;
+}
+
+nav.full {
+    padding: 20px 20px 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+
+    &>a {
+        min-width: 134px;
+    }
+
+    &>p {
+        min-width: 30px;
+    }
+
+    /* Menu toggle */
+    button {
+        background: transparent;
+        border: none;
+        display: block;
+        padding: 5px;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            color: var(--black);
+        }
+    }
+
+    /* Desktop navigation menu */
+    &>ul {
+        display: none;
+    }
+}
+
+/*
+Slide-in menu, implemented as an HTML dialog.
+*/
+
+#nav-c {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    max-width: unset;
+    max-height: unset;
+    margin: 0;
+    padding: 10px;
+    border: none;
+    overflow-x: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    user-select: none;
+    background: var(--yellow);
+    opacity: 0;
+    transition: all 400ms ease;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    section {
+        text-align: left;
+    }
+
+    &::backdrop {
+        /* backdrop messes up the fade animation; dialog covers the full screen anyway */
+        background: none;
+    }
+
+    &[open] {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: unset;
+        user-select: text;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--black);
+    }
+
+    strong {
+        display: block;
+        font: normal 18px/1 DGO;
+        letter-spacing: 0.1px;
+        margin-bottom: 8px;
+    }
+
+    em {
+        font-style: normal;
+    }
+
+    /* Header */
+    &>div {
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+
+        button {
+            display: block;
+            padding: 5px;
+            background: transparent;
+            border: 0;
+            color: var(--black);
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    /* Main */
+    section {
+        display: flex;
+        padding: 15px;
+        border: 2px solid var(--black);
+        border-bottom-width: 4px;
+        margin: 0;
+        border-radius: 10px;
+        width: 100%;
+        background: var(--white);
+        flex-wrap: wrap;
+        gap: 15px;
+        flex-direction: row-reverse;
+        justify-content: center;
+        transition: transform 200ms ease;
+        transform: translateX(100vw);
+    }
+
+    &[open] section {
+        transform: translateX(0);
+    }
+
+    /* Big menu item: Hegends NFTs */
+    section>a {
+        flex-basis: 255px;
+        align-self: flex-start;
+        flex-grow: 1;
+        border: 2px solid var(--black);
+        border-radius: 10px;
+        border-bottom-width: 4px;
+        overflow: hidden;
+
+        span {
+            display: block;
+            padding: 10px;
+        }
+
+        svg {
+            margin-top: 10px;
+        }
+
+        img {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 255px;
+            overflow: hidden;
+            object-fit: cover;
+            /* NOTE */
+        }
+    }
+
+    /* Rest of the menu items */
+    ul {
+        flex-grow: 100;
+        flex-basis: 285px;
+        padding: 0;
+
+        li {
+            margin-bottom: 15px;
+        }
+
+        li:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+        }
+
+        a img {
+            width: 60px;
+            height: 60px;
+            background-color: var(--yellow);
+            border: 2px solid var(--black);
+            border-radius: 8px;
+            margin-right: 12px;
+            padding: 13px;
+        }
+    }
+}
+
+/* Tighten things up for narrow screens */
+@media screen and (max-width: 400px) {
+    #nav-c {
+        section {
+            padding: 10px;
+        }
+
+        strong {
+            font-size: 17px;
+            margin-bottom: 5px;
+        }
+
+        ul {
+            font-size: 12px;
+        }
+
+        ul a {
+            align-items: flex-start;
+        }
+
+        ul a img {
+            width: 40px;
+            height: 40px;
+            padding: 8px;
+            margin-right: 8px;
+        }
+    }
+}
+
+/* Desktop menu */
+@media screen and (min-width: 900px) {
+    header {
+        padding-top: 15px;
+    }
+
+    /* Main menu */
+    nav.full {
+        a {
+            text-decoration: none;
+            color: var(--black);
+        }
+
+        &>ul>li>a,
+        &>ul>li>span {
+            font-size: 14px;
+            font-family: DGO;
+            line-height: 1;
+        }
+
+        &>a {
+            flex-grow: 1;
+        }
+
+        /* Mobile menu toggle button */
+        &>p {
+            display: none;
+        }
+
+        /* Top level menu */
+        &>ul {
+            display: flex;
+            gap: 15px;
+
+            &>li {
+
+                &>a,
+                &>span {
+                    display: block;
+                    padding: 0 15px;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                }
+
+                /* More toggle */
+                span {
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                    &>svg {
+                        display: inline-block;
+                        margin-left: 7px;
+                        transition: transform 200ms ease;
+                    }
+
+                    &:has(+ .open)>svg {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+        }
+
+        /* Buy button */
+        .btn {
+            background-color: var(--yellow);
+            font: 600 14px/1 PM;
+            padding: 9px 20px;
+
+            &:hover {
+                background-color: var(--black);
+            }
+        }
+    }
+
+    /* More menu */
+    #nav-m {
+        position: absolute;
+        left: 0;
+        top: 70px;
+        z-index: 100;
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        padding: 20px;
+        transition: visibility 200ms linear, opacity 200ms ease;
+        font-size: 12px;
+
+        &.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        strong {
+            display: block;
+            font: normal 16px/1 DGO;
+            letter-spacing: 0.1px;
+            margin-bottom: 6px;
+        }
+
+        em {
+            font-style: normal;
+            line-height: 1.3;
+        }
+
+        ul {
+            max-width: 1200px;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 265px 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+            column-gap: 20px;
+            row-gap: 0;
+            padding: 15px;
+            margin: 0 auto;
+            border: 2px solid var(--black);
+            border-radius: 10px;
+            border-bottom-width: 4px;
+            background-color: var(--white);
+        }
+
+        /* Hegends NFTs */
+        li:first-child {
+            grid-column: 1 / 2;
+            grid-row: 1 / 5;
+            border: 2px solid var(--black);
+            border-radius: 10px;
+            border-bottom-width: 4px;
+            overflow: hidden;
+
+            span {
+                display: block;
+                padding: 10px;
+            }
+
+            svg {
+                margin-top: 10px;
+            }
+
+            img {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 255px;
+                overflow: hidden;
+                /* NOTE */
+                object-fit: cover;
+            }
+        }
+
+        li:not(:first-child) a {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 60px;
+                height: 60px;
+                margin-right: 12px;
+                padding: 13px;
+                background-color: var(--yellow);
+                border: 2px solid var(--black);
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+/*
+Footer
+*/
+
+footer {
+    margin-top: 50px;
+    padding: 50px 15px 30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
+    border-top: 2px solid var(--black);
+
+    &>a {
+        display: inline-block;
+
+        img {
+            width: 150px;
+            transition: transform 50ms ease;
+        }
+
+        &:hover img {
+            transform: scale(1.04);
+        }
+    }
+
+    p {
+        margin: 15px auto;
+        max-width: 600px;
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        margin: 40px 0;
+        padding: 0;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    li a {
+        display: flex;
+        width: 50px;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid var(--black);
+        border-radius: 12px;
+        background: var(--white);
+        box-shadow: 8px 8px 1px -3px rgb(0 0 0 / 0.2), 3px 3px 0 -1px var(--black);
+        transform: rotate(-4deg);
+        transition: transform 100ms ease;
+
+        img {
+            width: auto;
+            height: 21px;
+        }
+    }
+
+    li:nth-child(2n) a {
+        transform: rotate(4deg);
+    }
+
+    li a:hover {
+        transform: scale(1.1);
+    }
+}
+
+/*
+Form elements
+*/
+
+.btn {
+    display: inline-block;
+    padding: 10px 17px;
+    border: 2px solid var(--black);
+    border-bottom-width: 4px;
+    border-radius: 7px;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: var(--white);
+    transition: all 100ms ease-in-out;
+    box-shadow: 4px 4px rgb(0 0 0 / 0.15), inset 4px 4px rgb(255 255 255 / 0.15);
+    text-wrap: nowrap;
+    color: var(--black);
+    font-weight: bold;
+
+    &:hover {
+        color: var(--white);
+        background-color: var(--black);
+        /* transform: scale(1.02, 1.05); */
+    }
+}
+
+.btn-ok {
+    background: var(--dark-green);
+    max-width: 400px;
+    color: white;
+}
+
+.btn-cancel {
+    background: var(--red);
+}
+
+button.text {
+    background: none;
+    border: none;
+    color: var(--blue);
+    text-decoration: underline;
+    padding: 0;
+    display: inline-block;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.btn.img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px clamp(5px, 10%, 20px);
+
+
+    &:hover {
+        background-color: var(--white);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.btn.popping {
+    transition: transform 100ms ease;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+/* Makes hover apply only to pointing devices, not phones etc. */
+@media (hover: hover) {
+    .btn:hover {
+        background: var(--black);
+        color: var(--white);
+        cursor: pointer;
+    }
+}
+
+/*
+Common content
+*/
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: DGO;
+    font-weight: normal;
+}
+
+img,
+video {
+    height: auto;
+}
+
+main {
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        line-height: 1.2;
+    }
+
+    h1 {
+        font-size: 38px;
+        text-align: center;
+        margin: 90px 20px 50px;
+    }
+
+    .subh {
+        text-align: center;
+    }
+
+    h1:has(+ .subh) {
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    p {
+        margin: 15px 0;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    section {
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+@media screen and (min-width: 710px) {
+    main {
+        h1:has(+ .subh) {
+            margin-bottom: 25px;
+        }
+    }
+}
+
+body.std main {
+    margin: 0 15px;
+}
+
+a.hi-viz {
+    font-weight: bold;
+}
+
+.sr-only {
+    border: 0;
+    clip-path: inset(50%);
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+/* Generic box with white background and drop shadow */
+.box {
+    border-radius: 12px;
+    background: var(--white);
+    border: 2px solid var(--black);
+    box-shadow: 5px 5px 0 0 rgb(0 0 0 / 0.15), 3px 3px 0 0 inset rgba(255, 255, 255, 0.5);
+}
+
+.box.fat {
+    border-radius: 18px;
+    background: var(--white);
+    border: 2px solid var(--black);
+    box-shadow: 8px 8px 1px -3px rgb(0 0 0 / 0.2), 3px 3px 0 -1px var(--black), 3px 3px 0 0 inset rgba(255, 255, 255, 0.5);
+}
+
+.box.small {
+    border-radius: 8px;
+}
+
+.box.heavy {
+    border-bottom-width: 4px;
+}
+
+.box.padded {
+    padding: 25px;
+}
+
+.box.plain {
+    box-shadow: none;
+}
+
+.box.text {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.box.textured {
+    background-image: url('{{ with partial "r.html" (resources.Get "img/card-bg.avif") }}{{ .RelPermalink }}{{ end }}');
+    background-size: contain;
+}
+
+.box.flat {
+    box-shadow: 5px 5px 0 0 rgb(0 0 0 / 0.15);
+}
+
+.box.fat.flat {
+    box-shadow: 8px 8px 1px -3px rgb(0 0 0 / 0.2), 3px 3px 0 -1px var(--black);
+}
+
+.box.tilted {
+    transform: rotate(-0.75deg);
+
+    &:nth-child(even) {
+        transform: rotate(0.75deg);
+    }
+}
+
+a.box {
+    display: block;
+    color: var(--black);
+    text-decoration: none;
+}
+
+/* Link that pops */
+.pop {
+    transition: transform 150ms ease;
+
+    &:hover {
+        transform: scale(1.01);
+    }
+}
+
+/* Buttons for navigating back/forward */
+.back-fwd-ctrl {
+    display: flex;
+    margin: 15px 0;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+
+    button {
+        color: var(--black);
+        border-radius: 50%;
+        padding: 12px;
+        border: 2px solid var(--black);
+        background: var(--white);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 0px 0px;
+        transition: transform 100ms ease;
+
+        &.prev svg {
+            position: relative;
+            left: -1px;
+        }
+
+        &.next svg {
+            position: relative;
+            right: -1px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+}
+
+/* Horizontal swipe-able list */
+.swipelist {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    overflow: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0 15px;
+
+    &>* {
+        scroll-snap-align: center;
+        overflow: hidden;
+        margin-bottom: 5px;
+    }
+}
+
+/*
+Geo-block
+*/
+
+.geoblocked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden scroll;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &::after {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 900px;
+        height: 900px;
+        transform: translate(-50%, -50%);
+        background: url('{{ with partial "r.html" (resources.Get "img/hege-uk.avif") }}{{ .RelPermalink }}{{ end }}');
+        background-size: 900px 900px;
+        border-radius: 40px;
+    }
+
+    div {
+        padding: 20px 25px;
+        max-width: 500px;
+        z-index: 1;
+
+        gg h1 {
+            margin: 0 0 20px;
+            line-height: 1;
+            font-size: 36px;
+        }
+
+        p {
+            margin: 15px 0;
+        }
+
+        h1+p {
+            font-weight: bold;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+    }
+}
+
+@media screen and (width < 900px),
+screen and (height < 900px) {
+    .geoblocked {
+        overflow: scroll;
+        background-image: url('{{ with partial "r.html" (resources.Get "img/hege-uk.avif") }}{{ .RelPermalink }}{{ end }}');
+        background-size: 900px 900px;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        &::after {
+            content: none;
+        }
+    }
+}
+
+@media screen and (width < 510px) {
+    .geoblocked div {
+        padding: 12px 15px 18px;
+        max-width: calc(100vw - 10px);
+    }
+}

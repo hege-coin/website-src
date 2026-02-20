@@ -1,0 +1,80 @@
+{{ define "main" }}
+<h1>{{ .Title }}</h1>
+<section class="heavy padded text box">
+  <h2>Cookies or nah?</h2>
+  <p>
+    The Hege website uses cookies. Please accept them. Otherwise Helena will binge-eat them all herself!
+  </p>
+  <p>
+    {{ with .Resources.Get "helena.avif" | resources.Fingerprint }}
+    <img src="{{ .RelPermalink }}" width="600" height="600"
+      alt="Helena binging on a table full of Valentine's sweets" />
+    {{ end }}
+  </p>
+  <p>
+    Jokes aside, of course you don't have to accept our cookies if you don't want to. It's cool, we get it. But we'd
+    be
+    super happy if you did, because it would help us a lot.
+  </p>
+  <p>
+    We only use these cookies to track how you use our website. Nothing else. Just analytics. Specifically, we use
+    Google
+    Analytics to measure the performance of our pages so that we can make them better. Because like a wise old hog
+    once
+    said: if you can't measure it, you can't improve it.
+  </p>
+  <p>
+    So fellow Hegend, make your choice, cookies or not?
+  </p>
+  <p id="cookie-settings">
+    <noscript>
+      <p class="noscript">Please turn on JavaScript to change cookie settings.</p>
+    </noscript>
+  </p>
+</section>
+<template id="cookie-settings-template">
+  <label>
+    <input type="checkbox" id="cookie-analytics-switch" role="switch" />
+    Accept analytics cookies
+  </label>
+</template>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const template = document.getElementById('cookie-settings-template');
+    const clone = template.content.cloneNode(true);
+    document.getElementById('cookie-settings').appendChild(clone);
+
+    function updateUI(settings) {
+      let e = document.getElementById('cookie-analytics-switch');
+      if (settings && settings['analytics_storage'] == 'granted') {
+        e.checked = true;
+      } else {
+        e.checked = false;
+      }
+    }
+
+    // Initialize UI to show current settings
+    updateUI(loadConsentSettings());
+
+    // Update UI on consent changes in this or other windows
+    document.addEventListener('consentChanged', function (ev) {
+      updateUI(ev.detail);
+    });
+    window.addEventListener('storage', function (ev) {
+      if (ev.key == 'consent') {
+        updateUI(JSON.parse(ev.newValue));
+      }
+    });
+
+    // Handle user changing settings
+    let analytics_button = document.getElementById('cookie-analytics-switch');
+    analytics_button.addEventListener('click', function () {
+      settings = loadConsentSettings() || DEFAULT_CONSENT;
+      // Flip consent setting on click
+      settings['analytics_storage'] = this.checked ? 'granted' : 'denied';
+      saveConsentSettings(settings);
+      setConsent(settings, 'update');
+    });
+  });
+</script>
+{{ end }}

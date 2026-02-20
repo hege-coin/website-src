@@ -1,0 +1,132 @@
+{{ define "main" }}
+<svg style="display: none;">
+  <defs>
+    <symbol id="s-close" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+      stroke-linejoin="round">
+      <line x1="0" y1="0" x2="20" y2="20"></line>
+      <line x1="0" y1="20" x2="20" y2="0"></line>
+    </symbol>
+  </defs>
+</svg>
+
+<section id="loh-intro">
+  {{ with partial "r.html" (.Parent.Resources.Get "loh.avif") }}
+  <img src="{{ .RelPermalink }}" width="1920" height="1080"
+    alt="The characters in the League of Hegends all together, against a starry blue background." />
+  {{ end }}
+  <p>
+    Welcome to the League of Hegends.
+    <button class="text" popovertarget="info-popover" popovertargetaction="show">What's this?</button>
+  </p>
+  <div id="info-popover" popover="auto" class="popover">
+    <div class="loh-info-popover box">
+      {{ with partial "r.html" (.Parent.Resources.Get "logo.avif") }}
+      <img src="{{ .RelPermalink }}" width="1044" height="757"
+        alt="League of Hegends printed in golden block letters against a black shield.">
+      {{ end }}
+      <div>
+        <p>
+          <strong>The League of Hegends represents the best of the best of the Hege community. It was created
+            to honor our awesome contributors.</strong>
+        </p>
+        <p>
+          From day one, Hege has been a community effort, and these are the Hegends who time after time
+          have shown selfless dedication to the vision. They are the ones who refused to give up when
+          others doubted. The ones who kept supporting, building, raiding, entertaining.
+        </p>
+        <p>
+          Being selected into the League of Hegends means having your name forever etched into the history
+          of Hege, and it's the ultimate token of respect and appreciation. Without these kickass Hegends,
+          Hege would simply not be what it is today, and we are forever grateful to their contributions.
+        </p>
+      </div>
+      <button popovertargetaction="hide" popovertarget="info-popover" class="close">
+        <svg>
+          <use xlink:href="#s-close"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="loh-list">
+  <script>
+    function showHegendPopover(id) {
+      el = document.getElementById(id);
+      url = el.getAttribute('data-url');
+      el.showPopover();
+      history.replaceState(id, null, url);
+      return false;
+    }
+    function popoverToggled(el, ev) {
+      if (ev.newState == "closed") {
+        history.replaceState(null, null, '/league-of-hegends/');
+      }
+    }
+  </script>
+  <ul class="b-list loh-list">
+    {{ $counter := 0 }}
+    {{ $hegends := where .Site.RegularPages "Section" "league-of-hegends" }}
+    {{ range $hegends }}
+    {{ $counter = add $counter 1 }}
+    {{ $machine_readable := time.Format "2006-01-02T15:04:05Z0700" .Params.introduced_date }}
+    <li>
+      <a class="box pop" href="{{ .RelPermalink}}" onclick="return showHegendPopover('loh-{{ $counter }}')">
+        {{ with partial "r.html" (.Resources.Get "thumb.avif") }}
+        <img src="{{ .RelPermalink }}" width="1000" height="1000" alt="{{ .Title }}" loading="lazy">
+        {{ end }}
+        <h2>{{ .Title }}</h2>
+        <time datetime="{{ $machine_readable }}">
+          {{ time.Format "January 2, 2006" .Params.introduced_date }}
+        </time>
+      </a>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+
+{{ $counter := 0 }}
+{{ $hegend := .Title }}
+{{ range $hegends }}
+{{ $counter = add $counter 1 }}
+{{ $machine_readable := time.Format "2006-01-02T15:04:05Z0700" .Params.introduced_date }}
+{{ if eq .Title $hegend }}
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    showHegendPopover('loh-{{ $counter }}')
+  });
+</script>
+{{ end }}
+<div onbeforetoggle="popoverToggled(this, event)" class="popover" popover="auto" id="loh-{{ $counter }}"
+  data-url="{{ .RelPermalink }}">
+  <div class="loh-hegend box">
+    {{ with partial "r.html" (.Resources.Get "full.avif") }}
+    <img src="{{ .RelPermalink }}" width="1500" height="1500" alt="{{ .Title }}" loading="lazy">
+    {{ end }}
+    <div class="info">
+      <h2>{{ .Title }}</h2>
+      <div>
+        {{ .Content }}
+      </div>
+      <dl>
+        <dt>Date of introduction</dt>
+        <dd>
+          <time datetime="{{ $machine_readable }}">
+            {{ time.Format "January 2, 2006" .Params.introduced_date }}
+          </time>
+        </dd>
+        <dt>Telegram username</dt>
+        <dd>
+          {{ .Params.tg_username }}
+        </dd>
+      </dl>
+    </div>
+    <button popovertargetaction="hide" class="close" popovertarget="loh-{{ $counter }}">
+      <svg>
+        <use xlink:href="#s-close"></use>
+      </svg>
+    </button>
+  </div>
+</div>
+{{ end }}
+{{ end }}

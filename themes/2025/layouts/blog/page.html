@@ -1,0 +1,38 @@
+{{ define "main" }}
+<section id="blog-entry">
+  <article class="blog-article">
+    <div class="h">
+      <h1>{{ .Title }}</h1>
+      <p>
+        {{ .Summary | plainify }}
+      </p>
+    </div>
+    <div class="byline-w">
+      <div class="byline">
+        <p>
+          <em>by</em>
+          <span>{{ .Params.author }}</span>
+        </p>
+        <p>
+          <span>{{ .Params.category }}</span>
+          <span> /</span>
+          {{ $machine_readable := time.Format "2006-01-02T15:04:05Z0700" .Params.published_date }}
+          <time datetime="{{ $machine_readable }}">
+            {{ time.Format "January 2, 2006" .Params.published_date }}
+          </time>
+        </p>
+      </div>
+    </div>
+    <div class="c-w">
+      <div class="c">
+        {{ .ContentWithoutSummary }}
+      </div>
+    </div>
+  </article>
+</section>
+<section class="blog-f blog-entry-f">
+  <p>
+    <a href="/blog/">← Back to the blog homepage</a>
+  </p>
+</section>
+{{ end }}

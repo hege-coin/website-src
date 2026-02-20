@@ -1,0 +1,7 @@
+{{ $src := .Page.Resources.GetMatch (.Get "src") }}
+{{ $alt := (.Get "alt") }}
+{{ $w := (.Get "width" )}}
+{{ $h := (.Get "height" )}}
+{{ with $src | fingerprint }}
+<img src="{{ .RelPermalink }}" width="{{ $w }}" height="{{ $h }}" alt="{{ $alt }}" loading="lazy">
+{{ end }}

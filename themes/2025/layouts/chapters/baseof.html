@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  {{ partial "head.html" . }}
+
+  {{ if .Params.legacy }}
+  {{ with resources.Get "css/legacy.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{ end }}
+  {{ end }}
+
+  <style>
+    body.ch-4 main,
+    body.ch-5 main {
+      section {
+        max-width: 800px;
+        margin: 0 auto 60px;
+      }
+
+      p {
+        text-align: center;
+        margin: 20px 20px 50px;
+      }
+
+      iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 560/315;
+        margin: 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body id="body" class="{{ .Params.body_class }}">
+  <header>
+    <nav class="ch">
+      {{ with resources.Get "img/hege-logo.svg" | fingerprint }}
+      <a href="/"><img width="134" height="34" src="{{ .RelPermalink }}" alt="HEGE"></a>
+      {{ end }}
+      <ul>
+        <li>
+          {{ if .Params.prev_url }}
+          <a href="{{ .Params.prev_url }}">Previous chapter</a>
+          {{ else }}
+          Previous chapter
+          {{ end }}
+        </li>
+        <li>
+          {{ if .Params.next_url }}
+          <a href="{{ .Params.next_url }}">Next chapter</a>
+          {{ else }}
+          Next chapter
+          {{ end }}
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+    {{ if .Params.footer_nav }}
+    <nav class="ch">
+      <ul>
+        <li>
+          {{ if .Params.prev_url }}
+          <a href="{{ .Params.prev_url }}">Previous chapter</a>
+          {{ else }}
+          Previous chapter
+          {{ end }}
+        </li>
+        <li>
+          {{ if .Params.next_url }}
+          <a href="{{ .Params.next_url }}">Next chapter</a>
+          {{ else }}
+          Next chapter
+          {{ end }}
+        </li>
+      </ul>
+    </nav>
+    {{ end }}
+  </main>
+  <dialog id="cookie-consent-dialog" class="cookie-consent-dialog">
+    <div class="w box">
+      <h2>
+        Cookies or nah?
+      </h2>
+      <p>
+        We use cookies to improve the Hege website. Please accept them! (But if you don't want to, that's cool, too.)
+      </p>
+      <p>
+        Can't make up your mind? Read more on our <a class="hi-viz" href="/cookies">Cookies Page</a>.
+      </p>
+      <form method="dialog">
+        <button id="accept-cookies-btn" class="btn btn-ok" autofocus="">
+          Accept cookies
+        </button>
+        <button id="reject-cookies-btn" class="btn btn-cancel">
+          Reject cookies
+        </button>
+      </form>
+    </div>
+  </dialog>
+  <template id="geoblock-msg-template">
+    <div class="heavy plain box">
+      <h1>
+        Sorry!
+      </h1>
+      <p>
+        Based on your location, you are not allowed to access the Hege website.
+      </p>
+      <p>
+        Because of legal uncertainties, we are forced to block visitors from the following countries:
+      </p>
+      <ul>
+        <li>United Kingdom</li>
+      </ul>
+    </div>
+  </template>
+</body>
+
+</html>

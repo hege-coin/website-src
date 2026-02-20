@@ -1,0 +1,45 @@
+{{ define "main" }}
+<h1>
+  Hege Blog
+</h1>
+<p class="subh">
+  Read the latest about $HEGE here!
+</p>
+<section id="blog-articles" class="b-list">
+  {{ range .Pages }}
+  {{ if not .Params.hide_from_listing }}
+  <article>
+    <a class="heavy box pop" href="{{ .RelPermalink }}" title="Read {{ .Title }}">
+      {{ $thumb_alt := .Params.thumb_alt }}
+      {{ $png := .Resources.Get "thumb.png" }}
+      {{ $avif := partial "r.html" (.Resources.Get "thumb.avif") }}
+      {{ $machine_readable := time.Format "2006-01-02T15:04:05Z0700" .Params.published_date }}
+      <img src="{{ $avif.RelPermalink }}" width="{{ $png.Width }}" height="{{ $png.Height }}" alt="{{ $thumb_alt }}" loading="lazy">
+      <p class="meta">
+        <time datetime="{{ $machine_readable }}">
+          {{ time.Format "January 2, 2006" .Params.published_date }}
+        </time>
+        <span>
+          {{ .Params.category }}
+        </span>
+      </p>
+      <h2>
+        {{ .Title }}
+      </h2>
+      <p>
+        {{ .Summary | plainify }}
+      </p>
+      <p>
+        Read more →
+      </p>
+    </a>
+  </article>
+  {{ end }}
+  {{ end }}
+</section>
+<section class="blog-f" id="blog-footer">
+  <p>
+    <a href="#top">↑ Back to top</a>
+  </p>
+</section>
+{{ end }}

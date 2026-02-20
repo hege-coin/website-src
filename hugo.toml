@@ -1,0 +1,16 @@
+baseURL = 'https://www.hegecoin.com/'
+languageCode = 'en-us'
+title = 'HEGE Your Bets'
+theme = '2025'
+disableHugoGeneratorInject = true
+enableRobotsTXT = true
+
+[outputs]
+home = ['HTML'] # Don't output XML for now
+# section = ['HTML']
+
+[params]
+enable_cookies = false
+
+[markup.goldmark.renderer]
+unsafe = true # Allow HTML in md files

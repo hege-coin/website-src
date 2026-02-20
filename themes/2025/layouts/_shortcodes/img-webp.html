@@ -1,0 +1,6 @@
+{{ $src := .Page.Resources.GetMatch (.Get "src") }}
+{{ $alt := (.Get "alt") }}
+{{ $webp := $src.Process "webp" }}
+{{ with partial "r.html" $webp }}
+<img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}" loading="lazy">
+{{ end }}

@@ -1,0 +1,11 @@
+{{ $src := .Page.Resources.GetMatch (.Get "src") }}
+{{ $alt := (.Get "alt") }}
+{{ $caption := (.Get "caption") }}
+<figure class="image">
+    {{ with partial "r.html" $src }}
+    <img src="{{ .RelPermalink }}" alt="{{ $alt }}">
+    {{ if $caption }}
+    <figcaption>{{ $caption }}</figcaption>
+    {{ end }}
+    {{ end }}
+</figure>

@@ -1,0 +1,48 @@
+{{ define "main" }}
+<script>
+  // For testing the Cookie consent functionality and UI
+  document.addEventListener("DOMContentLoaded", function () {
+    let dialog = document.getElementById('cookie-consent-dialog');
+    let accept_button = document.getElementById('accept-cookies-btn');
+    let reject_button = document.getElementById('reject-cookies-btn');
+
+    function updateStatus() {
+      e = document.getElementById('js-content');
+      e.innerHTML = ''
+      if (!loadConsentSettings()) {
+        e.insertAdjacentHTML('afterbegin', '<p>User has NOT yet selected cookie preferences.</p>');
+      } else {
+        e.insertAdjacentHTML('afterbegin', '<p>User has selected cookie preferences:<p>');
+        e.insertAdjacentHTML('beforeend', '<pre><code>' + JSON.stringify(loadConsentSettings(), null, 2) + '</code></pre>');
+      }
+    }
+    function resetSettings() {
+      saveConsentSettings(null);
+      updateStatus();
+    }
+    accept_button.addEventListener('click', updateStatus);
+    reject_button.addEventListener('click', updateStatus);
+    e = document.getElementById('reset-cookie-settings');
+    e.addEventListener('click', resetSettings);
+
+    e = document.getElementById('toggle-cookie-consent-dialog');
+    e.addEventListener('click', function () {
+      dialog.open ? dialog.close() : dialog.show();
+    });
+
+    updateStatus();
+  });
+</script>
+<h1>{{ .Title }}</h1>
+<section class="heavy padded text box">
+  <div id="js-content">
+    <p>User has NOT yet selected cookie preferences.</p>
+  </div>
+  <p>
+    <button id="reset-cookie-settings" class="btn">RESET USER SETTINGS</button>
+  </p>
+  <p>
+    <button id="toggle-cookie-consent-dialog" class="btn">TOGGLE COOKIE CONSENT DIALOG</button>
+  </p>
+</section>
+{{ end }}

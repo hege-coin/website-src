@@ -1,0 +1,4 @@
+  {{ $res := resources.Get . }}
+  {{ $fp := $res | fingerprint }}
+  {{ $tgt := printf "/r/%v.%s" (hash.FNV32a $fp.Data.Integrity) $fp.MediaType.FirstSuffix.Suffix }}
+  {{ return resources.Copy $tgt $res }}

@@ -1,0 +1,11 @@
+{{ define "main" }}
+<section class="fat padded box">
+  {{ with resources.Get "vid/travolta.mp4" | fingerprint }}
+  <video autoplay loop playsinline width="480" height="270">
+    <source src="{{ .RelPermalink }}">
+  </video>
+  {{ end }}
+  <h1>{{ .Title }}</h1>
+  {{ .ContentWithoutSummary }}
+</section>
+{{ end }}

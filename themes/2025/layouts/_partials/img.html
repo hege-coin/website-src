@@ -1,0 +1,19 @@
+{{ $alt := default "" .alt }}
+
+{{ $avifPath := replace .path ".png" ".avif" }}
+{{ .path }}
+{{ $avifPath }}
+{{ .res }}
+
+{{ with .res.Get .path }}
+{{ $w := .Width }}
+{{ $h := .Height }}
+{{ with .res.Get $avifPath }}
+  <img
+    src="{{ .RelPermalink }}"
+    alt="{{ $alt }}"
+    width="{{ $w }}"
+    height="{{ $h }}"
+  />
+{{ end }}
+{{ end }}
