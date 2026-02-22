@@ -261,14 +261,15 @@ Slide-in menu, implemented as an HTML dialog.
             margin-top: 10px;
         }
 
-        img {
-            margin: 0;
-            padding: 0;
-            width: 100%;
+        div {
             height: 255px;
-            overflow: hidden;
-            object-fit: cover;
-            /* NOTE */
+
+            img {
+                width: 100%;
+                height: 255px;
+                overflow: hidden;
+                object-fit: cover;
+            }
         }
     }
 
@@ -472,14 +473,17 @@ Slide-in menu, implemented as an HTML dialog.
                 margin-top: 10px;
             }
 
-            img {
-                margin: 0;
-                padding: 0;
+            div {
+                /* img { */
+                /* margin: 0; */
+                /* padding: 0; */
                 width: 100%;
                 height: 255px;
                 overflow: hidden;
-                /* NOTE */
-                object-fit: cover;
+
+                img {
+                    object-fit: cover;
+                }
             }
         }
 
@@ -937,5 +941,21 @@ screen and (height < 900px) {
     .geoblocked div {
         padding: 12px 15px 18px;
         max-width: calc(100vw - 10px);
+    }
+}
+
+/*
+Animated Hegends
+*/
+.hegends-anim {
+    position: relative;
+
+    img {
+        position: absolute;
+        opacity: 0;
+    }
+
+    img.show {
+        opacity: 1;
     }
 }

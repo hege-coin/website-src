@@ -40,8 +40,13 @@
 {{ $base := resources.ExecuteAsTemplate "css/base.css" . (resources.Get "css/base.css") }}
 {{ if .IsHome }}
 {{ $extra := resources.ExecuteAsTemplate "css/home.css" . (resources.Get "css/home.css") }}
+{{ if .Site.Params.inline_home_css }}
 {{ $css := slice $base $extra | resources.Concat "css/home-bundle.css" | minify }}
 <style>{{ $css.Content | safeCSS }}</style>
+{{ else }}
+{{ $css := partial "r.html" (slice $base $extra | resources.Concat "css/home-bundle.css" | minify) }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+{{ end }}
 {{ else }}
 {{ $extra := resources.ExecuteAsTemplate "css/other.css" . (resources.Get "css/other.css") }}
 {{ $css := partial "r.html" (slice $base $extra | resources.Concat "css/other-bundle.css" | minify) }}

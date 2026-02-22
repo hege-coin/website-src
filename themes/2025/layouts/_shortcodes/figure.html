@@ -5,10 +5,7 @@
 <figure class="image">
     {{ with partial "r.html" $webp }}
     <a href="{{ .RelPermalink }}">
-        <img src="{{ .RelPermalink }}"
-             width="{{ .Width }}"
-             height="{{ .Height }}"
-             alt="{{ $alt }}">
+        <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $alt }}" loading="lazy">
     </a>
     {{ if $caption }}
     <figcaption>{{ $caption }}</figcaption>

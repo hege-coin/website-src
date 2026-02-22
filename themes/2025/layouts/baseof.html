@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
+
 <head>
   {{ partial "head.html" . }}
 </head>
+
 <body id="body" class="{{ .Params.body_class }}">
   <header>
     <nav class="full">
@@ -14,7 +16,7 @@
           <a href="/about/" title="Read all about Hege">About</a>
         </li>
         <li>
-          <a href="/merch/" title="Shop in the Hege Merch Store">Merch</a>
+          <a href="https://shop.hegecoin.com" title="Shop in the Hege Merch Store" target="_blank">Merch</a>
         </li>
         <li>
           <a href="/blog/" title="Read the latest about Hege">Blog</a>
@@ -30,12 +32,28 @@
             </svg></span>
           <div id="nav-m">
             <ul>
-              <li class="item-nfts">
+              <li>
                 <a href="/nfts/" title="Visit Hege's official NFT collection">
-                  {{ with partial "res.html" "img/hegends.gif" }}
-                  <img src="{{ .RelPermalink }}" width="350" height="350" loading="lazy"
-                    alt="Colorful Heges from the Hegends NFT collection" />
-                  {{ end }}
+                  <div class="hegends-anim">
+                    {{ with partial "r.html" (resources.Get "img/hegend-1.avif") }}
+                    <img class="show" src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 1">
+                    {{ end }}
+                    {{ with partial "r.html" (resources.Get "img/hegend-2.avif") }}
+                    <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 2">
+                    {{ end }}
+                    {{ with partial "r.html" (resources.Get "img/hegend-3.avif") }}
+                    <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 3">
+                    {{ end }}
+                    {{ with partial "r.html" (resources.Get "img/hegend-4.avif") }}
+                    <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 4">
+                    {{ end }}
+                    {{ with partial "r.html" (resources.Get "img/hegend-5.avif") }}
+                    <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 5">
+                    {{ end }}
+                    {{ with partial "r.html" (resources.Get "img/hegend-6.avif") }}
+                    <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 6">
+                    {{ end }}
+                  </div>
                   <span><strong>Hegends NFTs</strong> <em>Learn more about our NFT collection!</em>
                     <svg width="11" height="11" viewBox="0 0 11 11">
                       <path
@@ -48,8 +66,7 @@
               <li>
                 <a href="/league-of-hegends/">
                   {{ with partial "res.html" "img/nav-loh-logo.avif" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A globe"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A globe" fetchpriority="low">
                   {{ end }}
                   <span><strong>League of Hegends</strong> <em>Meet our most valued community members</em></span>
                 </a>
@@ -65,8 +82,7 @@
               <li>
                 <a href="/testimonials">
                   {{ with partial "res.html" "img/nav-media-logo.svg" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="Photograph icon"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="Photograph icon" fetchpriority="low">
                   {{ end }}
                   <span><strong>Media</strong> <em>What's being said about $HEGE</em></span>
                 </a>
@@ -74,8 +90,7 @@
               <li>
                 <a href="https://dexscreener.com/solana/cjcu7cirhbhu4bdnplgaum1a6isp9ruhjmg36rjjrxnd" target="_blank">
                   {{ with partial "res.html" "img/nav-chart-logo.svg" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A bar chart icon"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A bar chart icon" fetchpriority="low">
                   {{ end }}
                   <span><strong>Price Chart</strong> <em>Track the $HEGE price by the second</em></span>
                 </a>
@@ -83,8 +98,7 @@
               <li>
                 <a href="https://drip.haus/hegecoin" target="_blank">
                   {{ with partial "res.html" "img/nav-drip-logo.svg" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A drop"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="A drop" fetchpriority="low">
                   {{ end }}
                   <span><strong>$HEGE on DRiP</strong> <em>Check out $HEGE on NFT platform DRiP</em></span>
                 </a>
@@ -100,8 +114,7 @@
               <li>
                 <a href="/#faq">
                   {{ with partial "res.html" "img/nav-faq-logo.svg" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="?"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="?" fetchpriority="low">
                   {{ end }}
                   <span><strong>FAQs</strong> <em>Answers to frequently asked questions</em></span>
                 </a>
@@ -109,8 +122,7 @@
               <li>
                 <a href="https://linktr.ee/hegefund" target="_blank">
                   {{ with partial "res.html" "img/nav-links-logo.svg" }}
-                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="Chain link"
-                    fetchpriority="low">
+                  <img src="{{ .RelPermalink }}" width="30" height="30" alt="Chain link" fetchpriority="low">
                   {{ end }}
                   <span><strong>Links</strong> <em>All the links you need, in one place</em></span>
                 </a>
@@ -150,10 +162,26 @@
       </div>
       <section>
         <a href="/nfts/" title="Learn more about our NFT collection!">
-          {{ with partial "res.html" "img/hegends.gif" }}
-          <img src="{{ .RelPermalink }}" width="350" height="350" loading="lazy"
-            alt="Colorful Heges from the Hegends NFT collection" />
-          {{ end }}
+          <div class="hegends-anim">
+            {{ with partial "r.html" (resources.Get "img/hegend-1.avif") }}
+            <img class="show" src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 1">
+            {{ end }}
+            {{ with partial "r.html" (resources.Get "img/hegend-2.avif") }}
+            <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 2">
+            {{ end }}
+            {{ with partial "r.html" (resources.Get "img/hegend-3.avif") }}
+            <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 3">
+            {{ end }}
+            {{ with partial "r.html" (resources.Get "img/hegend-4.avif") }}
+            <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 4">
+            {{ end }}
+            {{ with partial "r.html" (resources.Get "img/hegend-5.avif") }}
+            <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 5">
+            {{ end }}
+            {{ with partial "r.html" (resources.Get "img/hegend-6.avif") }}
+            <img src="{{ .RelPermalink }}" width="750" height="750" loading="lazy" alt="Hegend 6">
+            {{ end }}
+          </div>
           <span><strong>Hegends NFTs</strong> Learn more about our NFT collection!
             <svg width="11" height="11" viewBox="0 0 11 11">
               <path
@@ -166,8 +194,7 @@
           <li>
             <a href="/about/">
               {{ with partial "res.html" "img/nav-about-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Hege"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Hege" fetchpriority="low">
               {{ end }}
               <span><strong>About</strong> <em>Learn all about $HEGE</em></span>
             </a>
@@ -175,8 +202,7 @@
           <li>
             <a href="https://shop.hegecoin.com" target="_blank">
               {{ with partial "res.html" "img/nav-merch-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="T-shit"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="T-shit" fetchpriority="low">
               {{ end }}
               <span><strong>Merch</strong> <em>Rock some of our exclusive merch!</em></span>
             </a>
@@ -184,8 +210,7 @@
           <li>
             <a href="/blog/">
               {{ with partial "res.html" "img/nav-blog-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Newspaper article icon"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Newspaper article icon" fetchpriority="low">
               {{ end }}
               <span><strong>Blog</strong> <em>Read the latest about $HEGE</em></span>
             </a>
@@ -193,8 +218,7 @@
           <li>
             <a href="/league-of-hegends/">
               {{ with partial "res.html" "img/nav-loh-logo.avif" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Globe icon"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Globe icon" fetchpriority="low">
               {{ end }}
               <span><strong>League of Hegends</strong> <em>Meet our most valued community members</em></span>
             </a>
@@ -202,8 +226,7 @@
           <li>
             <a href="/testimonials/">
               {{ with partial "res.html" "img/nav-media-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Photograph icon"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Photograph icon" fetchpriority="low">
               {{ end }}
               <span><strong>Media</strong> <em>What's being said about $HEGE</em></span>
             </a>
@@ -211,8 +234,7 @@
           <li>
             <a href="https://dexscreener.com/solana/cjcu7cirhbhu4bdnplgaum1a6isp9ruhjmg36rjjrxnd" target="_blank">
               {{ with partial "res.html" "img/nav-chart-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Bar chart icon"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Bar chart icon" fetchpriority="low">
               {{ end }}
               <span><strong>Price Chart</strong> <em>Track the $HEGE price by the second</em></span>
             </a>
@@ -220,8 +242,7 @@
           <li>
             <a href="https://drip.haus/hegecoin" target="_blank">
               {{ with partial "res.html" "img/nav-drip-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Drop"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Drop" fetchpriority="low">
               {{ end }}
               <span><strong>$HEGE on DRiP</strong> <em>Check out $HEGE on NFT platform DRiP</em></span>
             </a>
@@ -237,8 +258,7 @@
           <li>
             <a href="/#faq">
               {{ with partial "res.html" "img/nav-faq-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="?"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="?" fetchpriority="low">
               {{ end }}
               <span><strong>FAQs</strong> <em>Answers to common questions</em></span>
             </a>
@@ -246,8 +266,7 @@
           <li>
             <a href="https://linktr.ee/hegefund" target="_blank">
               {{ with partial "res.html" "img/nav-links-logo.svg" }}
-              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Chain link"
-                fetchpriority="low">
+              <img src="{{ .RelPermalink }}" width="30" height="30" alt="Chain link" fetchpriority="low">
               {{ end }}
               <span><strong>Links</strong> <em>All the links you need, in one place</em></span>
             </a>
@@ -298,7 +317,7 @@
       may go up or it may go down. We are not responsible for the price of the token.
     </p>
     <p>
-      Copyright Hegecoin 2025
+      Copyright Hegecoin 2026
     </p>
     <p>
       Handcrafted with ❤️

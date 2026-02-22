@@ -1,4 +1,4 @@
-baseURL = 'https://www.hegecoin.com/'
+baseURL = 'https://hegecoin.com/'
 languageCode = 'en-us'
 title = 'HEGE Your Bets'
 theme = '2025'
@@ -11,6 +11,7 @@ home = ['HTML'] # Don't output XML for now
 
 [params]
 enable_cookies = false
+inline_home_css = true
 
 [markup.goldmark.renderer]
 unsafe = true # Allow HTML in md files

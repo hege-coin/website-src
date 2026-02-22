@@ -1,4 +1,32 @@
 //
+// UTILS
+//
+
+function runOnLoad(f) {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+  if (document.readyState == 'loading') {
+    document.addEventListener('DOMContentLoaded', f);
+  } else {
+    f();
+  }
+}
+
+function scrollSlider(id, direction) {
+  var e = document.getElementById(id);
+  let w = e.firstElementChild.scrollWidth;
+  e.scrollLeft += w * direction;
+}
+
+function toggleBuyDexCex(id, c) {
+  var e = document.getElementById(id)
+  if (!c) {
+    c = e.className == 'dex' ? 'cex' : 'dex';
+  }
+  e.className = c;
+  return false;
+}
+
+//
 // GEO-BLOCK
 //
 
@@ -27,31 +55,13 @@ function triggerGeoBlock() {
   target.appendChild(clone);
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+//document.addEventListener('DOMContentLoaded', async function () {
+runOnLoad(async function () {
   if (await isGeoBlocked()) {
     triggerGeoBlock();
   }
 });
 
-
-//
-// UTILS
-//
-
-function scrollSlider(id, direction) {
-  var e = document.getElementById(id);
-  let w = e.firstElementChild.scrollWidth;
-  e.scrollLeft += w * direction;
-}
-
-function toggleBuyDexCex(id, c) {
-  var e = document.getElementById(id)
-  if (!c) {
-    c = e.className == 'dex' ? 'cex' : 'dex';
-  }
-  e.className = c;
-  return false;
-}
 
 //
 // TELEGRAM CHAT BOX
@@ -144,7 +154,8 @@ async function getMessages(last_msg_id) {
   return data.messages;
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+// document.addEventListener('DOMContentLoaded', async function () {
+runOnLoad(async function () {
   const target_el = document.getElementById('tg-live');
   if (target_el) {
     // loadMessages(getMessages, target_el, 0);
@@ -181,9 +192,54 @@ function setNftFloorPrice(target_el) {
     .catch(err => console.error(err));
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+// document.addEventListener('DOMContentLoaded', function () {
+runOnLoad(function () {
   const target = document.getElementById('hegends-floor-price');
   if (target) {
     setNftFloorPrice(target);
   }
 });
+
+//
+// ANIMATED HEGENDS
+//
+
+// document.addEventListener('DOMContentLoaded', function () {
+runOnLoad(function () {
+  function show(els, i) {
+    let prev = i == 0 ? els.length - 1 : i - 1;
+    let next = (i + 1) % els.length;
+    els[i].classList.add('show');
+    els[prev].classList.remove('show');
+    setTimeout(show, 286, els, next);
+  }
+  const els = document.getElementsByClassName('hegends-anim');
+  for (el of els) {
+    const imgs = el.getElementsByTagName('img');
+    show(imgs, 0);
+  }
+});
+
+//
+// LAZY LOADED VIDEOS
+//
+
+// runOnLoad(function () {
+//   if ("IntersectionObserver" in window) {
+//     var lazy_videos = document.querySelectorAll('video.lazy');
+//     var obs = new IntersectionObserver(function (entries, observer) {
+//       for (video of entries) {
+//         if (video.isIntersecting) {
+//           var src = video.target.children[0];
+//           src.src = src.dataset.src
+//           video.target.load();
+//           video.target.classList.remove('lazy');
+//           obs.unobserve(video.target);
+//         }
+//       }
+//     });
+//     for (v of lazy_videos) {
+//       obs.observe(v);
+//     }
+//   }
+// });

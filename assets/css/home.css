@@ -219,6 +219,7 @@ body.home {
                 margin: 15px;
             }
 
+            img,
             video {
                 max-height: 400px;
                 object-fit: cover;
@@ -254,6 +255,7 @@ body.home {
                     flex-grow: 1;
                 }
 
+                img,
                 video {
                     flex-basis: 300px;
                     border-width: 0 0 0 2px;
@@ -360,6 +362,8 @@ body.home {
     }
 }
 
+/* Trailer section */
+
 #trailer {
     margin: 60px auto 0;
     max-width: 1000px;
@@ -367,6 +371,7 @@ body.home {
     video {
         margin: 30px 0 0;
         max-width: 100%;
+        background: var(--black);
     }
 }
 

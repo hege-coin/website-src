@@ -74,8 +74,10 @@
           Only then can he win the heart of his crush, Hegena.
         </p>
       </div>
+      {{ $pc := partial "r.html" (.Resources.Get "vid/hege-poor.avif" )}}
+      <!-- <img width="702" height="720" src="{{ $pc.RelPermalink }}" alt="Hege" loading="lazy"> -->
       {{ with partial "r.html" (.Resources.Get "vid/hege-poor.mp4") }}
-      <video autoplay loop playsinline width="720" height="720">
+      <video class="lazy" autoplay loop playsinline width="720" height="720">
         <source src="{{ .RelPermalink }}">
       </video>
       {{ end }}
@@ -96,8 +98,10 @@
           Winning Hegena over seems impossible. But Hege has a plan...
         </p>
       </div>
+      {{ $pc := partial "r.html" (.Resources.Get "vid/hendrix-gift.avif" )}}
+      <!-- <img width="702" height="720" src="{{ $pc.RelPermalink }}" alt="Hendrix" loading="lazy"> -->
       {{ with partial "r.html" (.Resources.Get "vid/hendrix-gift.mp4") }}
-      <video autoplay loop playsinline width="720" height="720">
+      <video class="lazy" autoplay loop playsinline width="720" height="720">
         <source src="{{ .RelPermalink }}">
       </video>
       {{ end }}
@@ -118,8 +122,10 @@
           odds.
         </p>
       </div>
+      {{ $pc := partial "r.html" (.Resources.Get "vid/hege-degen.avif" )}}
+      <!-- <img width="702" height="720" src="{{ $pc.RelPermalink }}" alt="Degen Hege" loading="lazy"> -->
       {{ with partial "r.html" (.Resources.Get "vid/hege-degen.mp4") }}
-      <video autoplay loop playsinline width="720" height="720">
+      <video class="lazy" autoplay loop playsinline width="720" height="720">
         <source src="{{ .RelPermalink }}">
       </video>
       {{ end }}
@@ -139,8 +145,10 @@
           Even so, Hege's focus remains steadfast: to win Hegena's heart by becoming the meme of her dreams.
         </p>
       </div>
+      {{ $pc := partial "r.html" (.Resources.Get "vid/helena-thirsty.avif" )}}
+      <!-- <img width="702" height="720" src="{{ $pc.RelPermalink }}" alt="Helena" loading="lazy"> -->
       {{ with partial "r.html" (.Resources.Get "vid/helena-thirsty.mp4") }}
-      <video autoplay loop playsinline width="720" height="720">
+      <video class="lazy" autoplay loop playsinline width="720" height="720">
         <source src="{{ .RelPermalink }}">
       </video>
       {{ end }}
@@ -160,8 +168,10 @@
           Let's come together and make Hege a true legend!
         </p>
       </div>
+      {{ $pc := partial "r.html" (.Resources.Get "vid/hege-sunglasses.avif" )}}
+      <!-- <img width="702" height="720" src="{{ $pc.RelPermalink }}" alt="Hege with sunglasses" loading="lazy"> -->
       {{ with partial "r.html" (.Resources.Get "vid/hege-sunglasses.mp4") }}
-      <video autoplay loop playsinline width="720" height="720">
+      <video class="lazy" autoplay loop playsinline width="720" height="720">
         <source src="{{ .RelPermalink }}">
       </video>
       {{ end }}
@@ -276,7 +286,7 @@
 <section id="trailer">
   <h2>Watch the Hege Trailer</h2>
   {{ with partial "r.html" (.Resources.Get "vid/hege-trailer.avif") }}
-  <video controls preload="none" poster="{{ .RelPermalink }}" width="1920" height="1020">
+  <video controls preload="none" width="1920" height="1080">
     {{ end }}
     {{ with partial "r.html" (.Resources.Get "vid/hege-trailer.mp4") }}
     <source src="{{ .RelPermalink }}" type="video/mp4">
