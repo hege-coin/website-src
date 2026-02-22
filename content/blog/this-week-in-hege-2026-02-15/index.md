@@ -5,7 +5,6 @@ date = "2026-02-15"
 published_date = "2026-02-15"
 author = "Day"
 category = "Project update"
-meta_description = ""
 thumb_alt="Helena binging on a table full of Valentine's sweets"
 +++
 
