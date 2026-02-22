@@ -10,7 +10,7 @@ rm -r build-output/.git
 cd build-output
 ln -s ../build-git-dev .git
 cd ..
-cp -r build-base/* build-output/
+cp -r build-base-dev/* build-output/
 cp -r public/* build-output/
 
 # Make output HTML pretty
